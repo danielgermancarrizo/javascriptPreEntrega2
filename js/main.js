@@ -1,137 +1,11 @@
-/* Simlador de compras, se poseen tres artículos y que se puede pagar con distintos medios de pago. 
-Se puede adquirir la cantidad de artículos que se quiera siempre que usemos el S para seguir comprando.
-Permite pagar el total con distintos medios de pago.
-Además se loguea con un pass que es 1234. 
+/*
+Menú de ADMIN para cargar cursos y tarjetas.
+Menú de Invitado para comprar.
 
-let opcion = 1;
-let pass = 1234;
-let access = false;
+El objetivo es cargar primero los cursos y tarjetas usando la opción 1 (Admin), para luego comprar un producto
+con tarjeta o trasnferencia. También se pueden listar cursos, mostrar los menores a un precio ingresado y eliminar un curso.
 
-const articles = {
-  "zapatillas": 12500,
-  "remera": 8500,
-  "campera": 40500,
-  "default": 0
-}
-
-for(let i = 3; i >= 0; i--){
-  let loginPass = prompt(
-    "Ingresa tu password, posees " + (i+1) + " oportunidades"
-  );
-  access=passValidate(loginPass,pass);
-  
-  if(access){
-    buy()
-    break;
-  }  
-}
-
-if (access==false){
-  alert("Superó la cantidad de intentos de ingreso.")
-}
-
-
-function passValidate(loginPass,pass){
-  if(loginPass==pass){
-    alert("bienvenido, ya podés comprar")
-    access = true;
-  }else{
-    alert("Error de password, intente nuevamente.");
-    access=false;
-  }
-  return access;
-}
-
-
-function buy(){
-  let price = 0;
-  let buy = true;
-  
-  while(buy == true){
-    price = articleValidate();
-    pay(price);
-    buy=sellingValidate()
-  }
-  
-  alert("Muchas gracias por su compra");
-  
-}
-
-function sellingValidate(){
-  let follow = true;
-  let answer="";
-
-  while(follow){
-    answer=prompt("Desea seguir comprando? (S/N)");
-    if(answer.toLowerCase() == "n"){
-      return false;
-    }else if (answer.toLowerCase() == "s" ){
-      return true;
-    }else{
-      alert("Ingrese una opción válida, S o N.")
-    }
-  }
-}
-
-function articleValidate(){
-  let article="";
-  let validate = true;
-  
-  while(validate){
-    article=prompt(
-      "¿Qué vas a comprar hoy? ¿zapatillas, remera o campera?."
-    );
-    
-    price = getPrice(article.toLowerCase());
-    if(price == 0){
-      alert(article+" no es un producto valido, ingrese nuevamente.")
-    }else{
-      validate=false;
-    }
-  }
-
-  return price;
-}
-
-function getPrice(article){
-  return articles[article] || articles["default"];
-}
-
-function pay(price){
-  let balance = price;
-  let payAmount = 0;
-
-  while(balance>0){
-    
-    payFormValidate(balance);
-    payAmount = prompt("Ingrese importe: ");
-  
-    if(payAmount>balance){
-      alert("Ingresó mal el monto, es mayor al saldo a pagar")
-    }else{
-      balance = balance - payAmount;
-    }    
-  }
-}
-
-
-function payFormValidate(balance){
-  let validate = true;
-  let payForm=0;
-  
-  while(validate){ 
-    
-    payForm = prompt("Debe pagar: $" + balance + "- Las formas de pago son: 1. Débito / 2.tarjeta de crédito / 3.transferencia"); 
-   
-    if (payForm == 1 || payForm == 2 || payForm == 3){
-      validate=false;
-    }else{
-      alert("No es una forma de pago válida, vuelva a intentar");
-    }
-  }
-}
 */
-
 
 const courses=[];
 const cards=[];
@@ -326,7 +200,7 @@ function login(){
     }else{
       menuInvitado(courses)
     }
-    option = prompt("Administrador ingrese 1, Comprador ingrese 2, para salir ingrese 0");
+    option = prompt("Administrador ingrese 1 \n Comprador ingrese 2 \n Para salir ingrese 0");
   }
   
 }
@@ -336,7 +210,7 @@ function menuInvitado(courses){
   let choice =0;
 
   while(option){
-    alert("1.- Filtrar por nombre de curso \n 2.- Filtrar por menor precio \n 3.- Listar Cursos \n 4.-Comprar")
+    alert("1.- Filtrar por nombre de curso \n 2.- Filtrar por menor precio \n 3.- Listar Cursos \n 4.-Comprar \n 0.- SALIR")
     choice = prompt("Ingrese la opción: ");
    
     switch (choice) {
@@ -450,23 +324,4 @@ function validate(){
 }
 
 login();
-
-
-//console.log(b);
-
-/*courses.forEach(function(arr){
-  console.log(arr);
-});
-
-
-
-let search = prompt("Ingrese el nombre del curso: ");
-
-const coursesByName=coursesFilterByName(courses,search)
-console.log(coursesByName)
-
-coursesByName.forEach(function(arr){
-  console.log(arr.title);
-});*/
-
 
